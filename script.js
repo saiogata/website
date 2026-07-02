@@ -33,7 +33,7 @@ if (heroVideo) {
   revealHero();
 }
 
-document.querySelectorAll(".suit-portrait").forEach((button) => {
+document.querySelectorAll(".suit-portrait, .world-image-button").forEach((button) => {
   button.addEventListener("click", () => {
     const fullImage = button.dataset.full;
     const title = button.dataset.title || "";
@@ -41,7 +41,7 @@ document.querySelectorAll(".suit-portrait").forEach((button) => {
     if (!imageModal || !modalImage || !modalCaption || !fullImage) return;
 
     modalImage.src = fullImage;
-    modalImage.alt = `${title} 全身立ち絵`;
+    modalImage.alt = title;
     modalCaption.textContent = title;
     imageModal.hidden = false;
     modalClose?.focus();
