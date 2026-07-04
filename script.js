@@ -3,6 +3,9 @@ const siteNav = document.querySelector(".site-nav");
 const hero = document.querySelector(".hero");
 const heroVideo = document.querySelector(".hero-video");
 const particleCanvas = document.querySelector(".particle-canvas");
+const bgmAudio = document.querySelector(".bgm-audio");
+const bgmToggle = document.querySelector(".bgm-toggle");
+const bgmToggleText = bgmToggle?.querySelector(".bgm-toggle-text");
 const imageModal = document.querySelector(".image-modal");
 const modalImage = imageModal?.querySelector("img");
 const modalCaption = imageModal?.querySelector("figcaption");
@@ -33,6 +36,36 @@ if (heroVideo) {
   window.setTimeout(revealHero, 5200);
 } else {
   revealHero();
+}
+
+const updateBgmState = (isPlaying) => {
+  bgmToggle?.classList.toggle("is-playing", isPlaying);
+  bgmToggle?.setAttribute("aria-pressed", String(isPlaying));
+  if (bgmToggleText) {
+    bgmToggleText.textContent = isPlaying ? "BGM ON" : "BGM OFF";
+  }
+};
+
+if (bgmAudio && bgmToggle) {
+  bgmAudio.volume = 0.42;
+  updateBgmState(false);
+
+  bgmToggle.addEventListener("click", async () => {
+    if (bgmAudio.paused) {
+      try {
+        await bgmAudio.play();
+        updateBgmState(true);
+      } catch {
+        updateBgmState(false);
+      }
+    } else {
+      bgmAudio.pause();
+      updateBgmState(false);
+    }
+  });
+
+  bgmAudio.addEventListener("pause", () => updateBgmState(false));
+  bgmAudio.addEventListener("play", () => updateBgmState(true));
 }
 
 document.querySelectorAll(".section-heading h2, .suit-copy h3, .work-card h3, .world-system-card h3, .ai-card h3").forEach((heading) => {

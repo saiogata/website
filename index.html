@@ -12,6 +12,7 @@
   </head>
   <body>
     <canvas class="particle-canvas" aria-hidden="true"></canvas>
+    <audio class="bgm-audio" src="assets/Relative_brilliance.wav" loop preload="none"></audio>
     <div class="site-shell">
       <header class="site-header" aria-label="グローバルナビゲーション">
         <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">
@@ -27,12 +28,17 @@
           <a href="#works">Works</a>
           <a href="#contact">Contact</a>
         </nav>
+        <button class="bgm-toggle" type="button" aria-pressed="false">
+          <span class="bgm-toggle-mark" aria-hidden="true"></span>
+          <span class="bgm-toggle-text">BGM OFF</span>
+        </button>
       </header>
 
       <main id="top">
         <section class="hero" aria-label="キービジュアル">
           <video class="hero-video" src="assets/hero-intro-web.mp4" autoplay muted playsinline></video>
           <div class="hero-visual" role="img" aria-label="キービジュアル2の表示エリア"></div>
+          <p class="hero-catchcopy">人とAIが出会うとき、物語は動き出す。</p>
           <div class="hero-content">
             <img class="hero-logo" src="assets/logo2.png" alt="OgataChannel">
             <p class="hero-line">Virtual Vanguard</p>
