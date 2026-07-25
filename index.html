@@ -8,363 +8,426 @@
       name="description"
       content="VTuber / Illustrator OgataChannel with AI の公式サイト。活動履歴、イラスト作品、連絡先を掲載。"
     >
-    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="styles.css?v=16">
   </head>
   <body>
-    <canvas class="particle-canvas" aria-hidden="true"></canvas>
-    <audio class="bgm-audio" src="assets/Relative_brilliance.wav" loop preload="none"></audio>
-    <div class="site-shell">
-      <header class="site-header" aria-label="グローバルナビゲーション">
-        <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-        <nav id="site-nav" class="site-nav">
-          <a href="#top">Top</a>
-          <a href="#about">About</a>
-          <a href="#history">History</a>
-          <a href="#worldview">Worldview</a>
-          <a href="#works">Works</a>
-          <a href="#contact">Contact</a>
-        </nav>
-        <button class="bgm-toggle" type="button" aria-pressed="false">
-          <span class="bgm-toggle-mark" aria-hidden="true"></span>
-          <span class="bgm-toggle-text">BGM OFF</span>
-        </button>
-      </header>
+    <!-- boot sequence -->
+    <div class="boot" aria-hidden="true">
+      <div class="boot-inner">
+        <p class="boot-logo">OGATA<span>.SYS</span></p>
+        <div class="boot-lines" id="boot-lines"></div>
+        <div class="boot-bar"><b id="boot-bar"></b></div>
+        <p class="boot-pct" id="boot-pct">000</p>
+      </div>
+    </div>
 
-      <main id="top">
-        <section class="hero" aria-label="キービジュアル">
-          <video class="hero-video" src="assets/hero-intro-web.mp4" autoplay muted playsinline></video>
-          <div class="hero-visual" role="img" aria-label="キービジュアル2の表示エリア"></div>
-          <p class="hero-catchcopy">人とAIが出会うとき、物語は動き出す。</p>
-          <div class="hero-content">
-            <img class="hero-logo" src="assets/logo2.png" alt="OgataChannel">
-            <p class="hero-line">Virtual Vanguard</p>
-            <div class="hero-actions">
-              <a class="primary-link" href="#works">View Works</a>
-              <a class="secondary-link" href="#worldview">Explore Story</a>
-            </div>
-            <a class="youtube-banner" href="https://www.youtube.com/user/Saifa17" target="_blank" rel="noreferrer">
-              <img src="https://cdnjs.cloudflare.com/ajax/libs/simple-icons/15.16.0/youtube.svg" alt="" aria-hidden="true">
-              <span>Youtubeでイラストノウハウ発信活動中！</span>
-              <strong>Watch Channel</strong>
+    <!-- custom cursor -->
+    <div class="cursor-dot" aria-hidden="true"></div>
+    <div class="cursor-ring" aria-hidden="true"><span class="cursor-label"></span></div>
+
+    <!-- global night-city backdrop (dim, behind everything) -->
+    <div class="city-backdrop" aria-hidden="true">
+      <div class="city-img"></div>
+      <div class="city-horizon"></div>
+      <div class="city-veil"></div>
+    </div>
+
+    <canvas id="depth-field" aria-hidden="true"></canvas>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+    <canvas id="viz" aria-hidden="true"></canvas>
+    <audio class="bgm-audio" src="assets/bgm.mp3" loop preload="none"></audio>
+
+    <!-- left rail (desktop) -->
+    <aside class="rail" aria-label="サイトナビゲーション">
+      <a class="rail-logo" href="#top" aria-label="トップへ">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 22 12 12 22 2 12Z" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>
+      </a>
+      <div class="rail-progress" aria-hidden="true"><b></b></div>
+      <nav class="rail-nav">
+        <a href="#about" data-sec="about"><span>01</span>ABOUT</a>
+        <a href="#history" data-sec="history"><span>02</span>LOG</a>
+        <a href="#worldview" data-sec="worldview"><span>03</span>WORLD</a>
+        <a href="#suits" data-sec="suits"><span>04</span>SUIT</a>
+        <a href="#works" data-sec="works"><span>05</span>WORKS</a>
+        <a href="#contact" data-sec="contact"><span>06</span>LINK</a>
+      </nav>
+      <div class="rail-bottom">
+        <button class="bgm-toggle" type="button" aria-pressed="false" aria-label="BGM切り替え">
+          <span class="bgm-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        </button>
+        <span class="rail-caption">SOUND</span>
+      </div>
+    </aside>
+
+    <!-- mobile top bar -->
+    <header class="mobile-bar">
+      <a class="mobile-logo" href="#top">OGATA<span>CH.</span></a>
+      <button class="mobile-menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="メニュー">
+        <span></span><span></span>
+      </button>
+    </header>
+    <div class="mobile-menu" id="mobile-menu" hidden>
+      <nav aria-label="モバイルナビゲーション">
+        <a href="#about"><span>01</span>ABOUT</a>
+        <a href="#history"><span>02</span>LOG</a>
+        <a href="#worldview"><span>03</span>WORLD</a>
+        <a href="#suits"><span>04</span>SUIT</a>
+        <a href="#works"><span>05</span>WORKS</a>
+        <a href="#contact"><span>06</span>LINK</a>
+      </nav>
+      <button class="bgm-toggle bgm-toggle-mobile" type="button" aria-pressed="false">
+        <span class="bgm-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span class="bgm-toggle-text">BGM OFF</span>
+      </button>
+    </div>
+
+    <main id="top">
+      <!-- ============ HERO ============ -->
+      <section class="hero">
+        <!-- fullscreen media: intro movie plays ~6s, then crossfades into
+             the key visual which stays as the hero backdrop -->
+        <div class="hero-media" aria-hidden="true">
+          <img class="hero-kv" src="assets/key-visual-hd.webp" alt="">
+          <video
+            class="hero-bgv"
+            src="assets/hero-intro-web.mp4"
+            autoplay muted playsinline
+          ></video>
+          <div class="hero-shade"></div>
+        </div>
+
+        <div class="hero-inner">
+          <h1 class="hero-logo">
+            <span class="holo-beam" aria-hidden="true"></span>
+            <img src="assets/logo2.png" alt="OgataChannel with AI">
+            <span class="holo-rgb holo-rgb-a" aria-hidden="true"></span>
+            <span class="holo-rgb holo-rgb-b" aria-hidden="true"></span>
+            <span class="holo-lines" aria-hidden="true"></span>
+            <span class="holo-scan" aria-hidden="true"></span>
+          </h1>
+          <p class="withai mono">VIRTUAL VANGUARD — WITH AI</p>
+          <div class="hero-actions">
+            <a class="btn btn-fill" href="#works" data-hover>VIEW WORKS</a>
+            <a class="btn btn-line" href="#worldview" data-hover>EXPLORE STORY</a>
+            <a class="btn btn-yt" href="https://www.youtube.com/user/Saifa17" target="_blank" rel="noreferrer" data-hover>
+              <span class="live-dot" aria-hidden="true"></span>YOUTUBE
             </a>
           </div>
-          <a class="scroll-cue" href="#about" aria-label="Aboutへ移動">Scroll</a>
-        </section>
+        </div>
 
-        <section id="about" class="section about-section">
-          <div class="section-heading">
-            <p class="eyebrow">About</p>
-            <h2>A night illustrator exploring art.</h2>
-          </div>
-          <div class="about-grid">
-            <div class="profile-panel">
-              <p>夜のバーチャル東京に、ARアートを残すVTuber / Illustrator。</p>
-              <p>Streaming, illustration, AI support system, and hidden stories behind the suit.</p>
-              <p class="profile-tagline">YouTubeでイラスト制作やノウハウを配信中！</p>
-            </div>
-            <div class="link-panel" aria-label="外部リンク">
-              <a href="https://www.youtube.com/user/Saifa17" target="_blank" rel="noreferrer">
-                <img src="https://cdnjs.cloudflare.com/ajax/libs/simple-icons/15.16.0/youtube.svg" alt="" aria-hidden="true">
-                <span>YouTube</span>
-                <strong>OgataChannel with AI</strong>
-              </a>
-              <a href="https://www.pixiv.net/users/10248" target="_blank" rel="noreferrer">
-                <img src="https://cdnjs.cloudflare.com/ajax/libs/simple-icons/15.16.0/pixiv.svg" alt="" aria-hidden="true">
-                <span>pixiv</span>
-                <strong>Illustration Archive</strong>
-              </a>
-              <a href="https://ogatachannel.booth.pm/" target="_blank" rel="noreferrer">
-                <img src="assets/logo_icon_booth.png" alt="" aria-hidden="true">
-                <span>BOOTH</span>
-                <strong>Digital Goods / Assets</strong>
-              </a>
-              <a href="https://x.com/SaiOgata" target="_blank" rel="noreferrer">
-                <img src="https://cdnjs.cloudflare.com/ajax/libs/simple-icons/15.16.0/x.svg" alt="" aria-hidden="true">
-                <span>X</span>
-                <strong>Daily Works</strong>
-              </a>
+        <p class="hero-catch">
+          <span id="typeline"></span><span class="caret" aria-hidden="true"></span>
+        </p>
+
+        <a class="scroll-sign mono" href="#about" data-hover aria-label="Aboutへ移動">
+          <span>SCROLL</span><i></i>
+        </a>
+      </section>
+
+      <!-- ============ ABOUT ============ -->
+      <section id="about" class="block">
+        <header class="block-head">
+          <span class="block-ghost" aria-hidden="true">01</span>
+          <p class="block-tag mono">01 / PROFILE</p>
+          <h2 class="block-title" data-scramble>ABOUT</h2>
+        </header>
+
+        <div class="about-layout">
+          <div class="about-main reveal">
+            <p class="statement">夜のバーチャル東京に、<br>ARアートを残す。</p>
+            <p class="statement-sub">VTuber / Illustrator — streaming, illustration, AI support system, and hidden stories behind the suit.</p>
+            <p class="statement-note">YouTubeでイラスト制作やノウハウを配信中！</p>
+            <div class="purpose-box">
+              <p class="mono purpose-head">// PURPOSE — 活動目的</p>
+              <p>クリエイターであることを武器に、<em>「人類とAIの正しい共生」</em>のモデルケースを提示するため。</p>
             </div>
           </div>
-          <article class="purpose-panel">
-            <div class="purpose-icon" aria-hidden="true">
-              <img src="assets/purpose-human-ai.svg" alt="">
-            </div>
-            <div class="purpose-copy">
-              <p class="eyebrow">Purpose</p>
-              <h3>活動目的</h3>
-              <p>
-                クリエイターであることを武器に、「人類とAIの正しい共生」のモデルケースを提示するため。
-              </p>
-            </div>
+
+          <div class="about-links reveal">
+            <a class="sq-link tilt" href="https://www.youtube.com/user/Saifa17" target="_blank" rel="noreferrer" data-hover>
+              <span class="mono sq-code">CH-01</span>
+              <strong>YouTube</strong>
+              <span class="sq-desc">OgataChannel with AI</span>
+              <span class="sq-arrow mono" aria-hidden="true">↗</span>
+            </a>
+            <a class="sq-link tilt" href="https://www.pixiv.net/users/10248" target="_blank" rel="noreferrer" data-hover>
+              <span class="mono sq-code">CH-02</span>
+              <strong>pixiv</strong>
+              <span class="sq-desc">Illustration Archive</span>
+              <span class="sq-arrow mono" aria-hidden="true">↗</span>
+            </a>
+            <a class="sq-link tilt" href="https://ogatachannel.booth.pm/" target="_blank" rel="noreferrer" data-hover>
+              <span class="mono sq-code">CH-03</span>
+              <strong>BOOTH</strong>
+              <span class="sq-desc">Digital Goods / Assets</span>
+              <span class="sq-arrow mono" aria-hidden="true">↗</span>
+            </a>
+            <a class="sq-link tilt" href="https://x.com/SaiOgata" target="_blank" rel="noreferrer" data-hover>
+              <span class="mono sq-code">CH-04</span>
+              <strong>X</strong>
+              <span class="sq-desc">Daily Works</span>
+              <span class="sq-arrow mono" aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ HISTORY ============ -->
+      <section id="history" class="block block-wide">
+        <header class="block-head">
+          <span class="block-ghost" aria-hidden="true">02</span>
+          <p class="block-tag mono">02 / SYSTEM LOG</p>
+          <h2 class="block-title" data-scramble>HISTORY</h2>
+          <p class="block-note mono">DRAG →</p>
+        </header>
+
+        <p class="history-intro reveal">2007年頃からデジタルイラスト制作活動を開始。以後ゲーム会社へ入り、イラスト、UIデザイン、エフェクト、UIアニメーションの分野に従事。YouTubeで絵描き向けの制作ノウハウを発信している。</p>
+
+        <div class="log-strip" id="log-strip">
+          <article class="log-card reveal">
+            <time class="mono">2022.05.22</time>
+            <h3>OgataChannel launch</h3>
+            <p>「OgataChannel」YouTubeチャンネルを設立。活動開始。</p>
+            <span class="log-idx mono">LOG_001</span>
           </article>
-        </section>
+          <article class="log-card reveal">
+            <time class="mono">2023.10.05</time>
+            <h3>OgataChannel with AI</h3>
+            <p>チャンネル名を「OgataChannel with AI」に改名。「人類とAIの共生」をサブテーマとして活動を表明し、プロトタイプAI「チサト」をユニットタイプとして導入。</p>
+            <span class="log-idx mono">LOG_002</span>
+          </article>
+          <article class="log-card reveal">
+            <time class="mono">2024.11.04</time>
+            <h3>ChiSaT Spec 01</h3>
+            <p>チサトの擬人化デザインSpec1を公開。</p>
+            <span class="log-idx mono">LOG_003</span>
+          </article>
+          <article class="log-card reveal">
+            <time class="mono">2025.02.23</time>
+            <h3>Makoto reveal</h3>
+            <p>チャンネルセキュリティ担当AI「マコト」を公開。</p>
+            <span class="log-idx mono">LOG_004</span>
+          </article>
+          <article class="log-card reveal">
+            <time class="mono">2025.12.31</time>
+            <h3>300 subscribers</h3>
+            <p>チャンネル登録者数300を突破。</p>
+            <span class="log-idx mono">LOG_005</span>
+          </article>
+          <article class="log-card reveal">
+            <time class="mono">2026.03.10</time>
+            <h3>ChiSaT Spec 02</h3>
+            <p>チサト新リニューアル版Spec2を公開。</p>
+            <span class="log-idx mono">LOG_006</span>
+          </article>
+          <article class="log-card reveal">
+            <time class="mono">2026.05.01</time>
+            <h3>Creative know-how focus</h3>
+            <p>チャンネルの活動方針を「クリエイティブノウハウ特化」へと変更。</p>
+            <span class="log-idx mono">LOG_007</span>
+          </article>
+        </div>
+      </section>
 
-        <section id="history" class="section">
-          <div class="section-heading">
-            <p class="eyebrow">History</p>
-            <h2>Channel timeline</h2>
-          </div>
-          <div class="career-intro">
-            <p>2007年頃からデジタルイラスト制作活動を開始。以後ゲーム会社へ入り、イラスト、UIデザイン、エフェクト、UIアニメーションの分野に従事。</p>
-            <p>YouTubeで絵描き向けの制作ノウハウを発信している。</p>
-          </div>
-          <div class="channel-timeline">
-            <article>
-              <time datetime="2022-05-22">2022/05/22</time>
-              <div>
-                <h3>OgataChannel launch</h3>
-                <p>「OgataChannel」YouTubeチャンネルを設立。活動開始。</p>
-              </div>
-            </article>
-            <article>
-              <time datetime="2023-10-05">2023/10/05</time>
-              <div>
-                <h3>OgataChannel with AI</h3>
-                <p>チャンネル名を「OgataChannel with AI」に改名。「人類とAIの共生」をサブテーマとして活動を表明し、プロトタイプAI「チサト」をユニットタイプとして導入。</p>
-              </div>
-            </article>
-            <article>
-              <time datetime="2024-11-04">2024/11/04</time>
-              <div>
-                <h3>ChiSaT Spec 01</h3>
-                <p>チサトの擬人化デザインSpec1を公開。</p>
-              </div>
-            </article>
-            <article>
-              <time datetime="2025-02-23">2025/02/23</time>
-              <div>
-                <h3>Makoto reveal</h3>
-                <p>チャンネルセキュリティ担当AI「マコト」を公開。</p>
-              </div>
-            </article>
-            <article>
-              <time datetime="2025-12-31">2025/12/31</time>
-              <div>
-                <h3>300 subscribers</h3>
-                <p>チャンネル登録者数300を突破。</p>
-              </div>
-            </article>
-            <article>
-              <time datetime="2026-03-10">2026/03/10</time>
-              <div>
-                <h3>ChiSaT Spec 02</h3>
-                <p>チサト新リニューアル版Spec2を公開。</p>
-              </div>
-            </article>
-            <article>
-              <time datetime="2026-05-01">2026/05/01</time>
-              <div>
-                <h3>Creative know-how focus</h3>
-                <p>チャンネルの活動方針を「クリエイティブノウハウ特化」へと変更。</p>
-              </div>
-            </article>
-          </div>
-        </section>
+      <!-- ============ WORLDVIEW ============ -->
+      <section id="worldview" class="block">
+        <header class="block-head">
+          <span class="block-ghost" aria-hidden="true">03</span>
+          <p class="block-tag mono">03 / DATABASE</p>
+          <h2 class="block-title" data-scramble>WORLDSYSTEM</h2>
+        </header>
 
-        <section id="worldview" class="section">
-          <div class="section-heading">
-            <p class="eyebrow">Worldview</p>
-            <h2>WorldSystem：世界観</h2>
-          </div>
-          <div class="world-system">
-            <div class="world-system-lead">
-              <p>
-                夜の東京にARアートを描き、AIと共に創作・解析・発信を行うOgataChannelの世界観資料。
-                主人公、支援AI、バーチャル公安、G粒子、スーツ進化の関係をビジュアルで記録する。
-              </p>
+        <p class="block-lead reveal">
+          夜の東京にARアートを描き、AIと共に創作・解析・発信を行うOgataChannelの世界観資料。
+          主人公、支援AI、バーチャル公安、G粒子、スーツ進化の関係をビジュアルで記録する。
+        </p>
+
+        <div class="db-grid">
+          <button class="db-card tilt reveal" type="button" data-full="assets/world-system-01.webp" data-title="FILE 01 / CONCEPT" data-hover>
+            <img src="assets/world-system-01.webp" alt="OgataChannel 世界観資料 コンセプト" loading="lazy">
+            <span class="db-meta"><b class="mono">FILE_01</b>コンセプト</span>
+          </button>
+          <button class="db-card tilt reveal" type="button" data-full="assets/world-system-02.webp" data-title="FILE 02 / BACKGROUND" data-hover>
+            <img src="assets/world-system-02.webp" alt="世界観背景 夜の東京とARアート" loading="lazy">
+            <span class="db-meta"><b class="mono">FILE_02</b>世界観背景</span>
+          </button>
+          <button class="db-card tilt reveal" type="button" data-full="assets/world-system-03.webp" data-title="FILE 03 / CHARACTERS" data-hover>
+            <img src="assets/world-system-03.webp" alt="ストーリーと主要キャラクター" loading="lazy">
+            <span class="db-meta"><b class="mono">FILE_03</b>ストーリー / 主要キャラクター</span>
+          </button>
+          <button class="db-card tilt reveal" type="button" data-full="assets/world-system-05.webp" data-title="FILE 04 / GHOST PARTICLE" data-hover>
+            <img src="assets/world-system-05.webp" alt="G粒子解説" loading="lazy">
+            <span class="db-meta"><b class="mono">FILE_04</b>G粒子解説</span>
+          </button>
+          <button class="db-card tilt reveal" type="button" data-full="assets/world-system-04.webp" data-title="FILE 05 / SUIT EVOLUTION" data-hover>
+            <img src="assets/world-system-04.webp" alt="スーツ解説 進化の軌跡" loading="lazy">
+            <span class="db-meta"><b class="mono">FILE_05</b>スーツ解説</span>
+          </button>
+          <button class="db-card tilt reveal" type="button" data-full="assets/world-system-06.webp" data-title="FILE 06 / NIGHTHAWK" data-hover>
+            <img src="assets/world-system-06.webp" alt="Ver4.0 ナイトホーク詳細" loading="lazy">
+            <span class="db-meta"><b class="mono">FILE_06</b>Ver4.0 ナイトホーク詳細</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- ============ SUITS (scrollytelling) ============ -->
+      <section id="suits" class="suit-scroll" aria-label="スーツ進化アーカイブ">
+        <div class="suit-pin">
+          <header class="block-head suit-head">
+            <span class="block-ghost" aria-hidden="true">04</span>
+            <p class="block-tag mono">04 / EQUIPMENT — SCROLL TO EVOLVE</p>
+            <h2 class="block-title" data-scramble>SUIT EVOLUTION</h2>
+          </header>
+
+          <div class="suit-stage3">
+            <div class="suit-visual3">
+              <div class="suit-bay bay-0" aria-hidden="true"></div>
+              <div class="suit-bay bay-1" aria-hidden="true"></div>
+              <div class="suit-bay bay-2" aria-hidden="true"></div>
+              <img class="suit-layer pos-center" src="assets/suit-ver1.webp" alt="Ver.1 プライモーディアル立ち絵">
+              <img class="suit-layer back-0" src="assets/suit-ver2.webp" alt="Ver.2 ファントム立ち絵">
+              <img class="suit-layer back-1" src="assets/suit-ver3.webp" alt="Ver.3 ウルフ立ち絵">
+              <img class="suit-layer back-2" src="assets/suit-ver4.webp" alt="Ver.4 ナイトホーク立ち絵">
+              <div class="suit-ring" aria-hidden="true"></div>
+              <div class="suit-floor" aria-hidden="true"></div>
+              <canvas class="gp-canvas" aria-hidden="true"></canvas>
             </div>
-            <div class="world-system-grid" aria-label="世界観資料">
-              <article class="world-system-card">
-                <button class="world-image-button" type="button" data-full="assets/world-system-01.png" data-title="01 / Concept">
-                  <img src="assets/world-system-01.png" alt="OgataChannel 世界観資料 コンセプト">
-                </button>
-                <span>01 / Concept</span>
-                <h3>コンセプト</h3>
-              </article>
-              <article class="world-system-card">
-                <button class="world-image-button" type="button" data-full="assets/world-system-02.png" data-title="02 / Background">
-                  <img src="assets/world-system-02.png" alt="世界観背景 夜の東京とARアート">
-                </button>
-                <span>02 / Background</span>
-                <h3>世界観背景</h3>
-              </article>
-              <article class="world-system-card">
-                <button class="world-image-button" type="button" data-full="assets/world-system-03.png" data-title="03 / Story and Characters">
-                  <img src="assets/world-system-03.png" alt="ストーリーと主要キャラクター">
-                </button>
-                <span>03 / Characters</span>
-                <h3>ストーリー / 主要キャラクター</h3>
-              </article>
-              <article class="world-system-card">
-                <button class="world-image-button" type="button" data-full="assets/world-system-05.png" data-title="04 / Ghost Particle">
-                  <img src="assets/world-system-05.png" alt="G粒子解説">
-                </button>
-                <span>04 / Ghost Particle</span>
-                <h3>G粒子解説</h3>
-              </article>
-              <article class="world-system-card">
-                <button class="world-image-button" type="button" data-full="assets/world-system-04.png" data-title="05 / Suit Evolution">
-                  <img src="assets/world-system-04.png" alt="スーツ解説 進化の軌跡">
-                </button>
-                <span>05 / Suit Evolution</span>
-                <h3>スーツ解説</h3>
-              </article>
-              <article class="world-system-card">
-                <button class="world-image-button" type="button" data-full="assets/world-system-06.png" data-title="06 / Nighthawk Detail">
-                  <img src="assets/world-system-06.png" alt="Ver4.0 ナイトホーク詳細">
-                </button>
-                <span>06 / Nighthawk</span>
-                <h3>Ver4.0 ナイトホーク詳細</h3>
-              </article>
+
+            <div class="suit-panel3">
+              <div class="ver-rail mono" aria-hidden="true">
+                <span class="ver-node is-on" data-ver="0">1.0</span>
+                <span class="ver-node" data-ver="1">2.0</span>
+                <span class="ver-node" data-ver="2">3.0</span>
+                <span class="ver-node" data-ver="3">4.0</span>
+                <i class="ver-line"><b id="ver-progress"></b></i>
+              </div>
+              <p class="mono suit-ver3" id="s3-ver">VER.1.0 / PRIMORDIAL</p>
+              <h3 class="suit-name3" id="s3-name">原初型</h3>
+              <p class="suit-desc3" id="s3-desc">最初のスーツ。私服にG粒子機構を搭載した、活動の始点となるフォーム。</p>
+              <p class="mono suit-tags3" id="s3-tags">FIRST SUIT / GHOST PARTICLE DEVICE</p>
+              <div class="stats3" aria-hidden="true">
+                <div class="stat3"><span class="mono">STEALTH</span><i><b id="s3-st0"></b></i></div>
+                <div class="stat3"><span class="mono">RANGE</span><i><b id="s3-st1"></b></i></div>
+                <div class="stat3"><span class="mono">MELEE</span><i><b id="s3-st2"></b></i></div>
+                <div class="stat3"><span class="mono">AI SYNC</span><i><b id="s3-st3"></b></i></div>
+              </div>
             </div>
           </div>
-          <div class="section-heading suit-heading">
-            <p class="eyebrow">Suit archive</p>
-            <h2>Suit evolution</h2>
-          </div>
-          <div class="suit-stack">
-            <article class="suit-card">
-              <button class="suit-portrait" type="button" data-full="assets/suit-ver1-transparent.png" data-title="Ver.1.0 / Primordial">
-                <img src="assets/suit-ver1-transparent.png" alt="Ver.1 プライモーディアル立ち絵">
-              </button>
-              <div class="suit-copy">
-                <span class="year">Ver.1.0 / Primordial</span>
-                <h3>原初型</h3>
-                <p>最初のスーツ。私服にG粒子機構を搭載した、活動の始点となるフォーム。</p>
-                <small>First suit / Ghost Particle device</small>
-              </div>
-            </article>
-            <article class="suit-card suit-card-reverse">
-              <button class="suit-portrait" type="button" data-full="assets/suit-ver2-transparent.png" data-title="Ver.2.0 / Phantom">
-                <img src="assets/suit-ver2-transparent.png" alt="Ver.2 ファントム立ち絵">
-              </button>
-              <div class="suit-copy">
-                <span class="year">Ver.2.0 / Phantom</span>
-                <h3>隠密型</h3>
-                <p>ホルニッセ・ツヴァイ、ヴァイパー、シュピネ。G塗料タンク量と噴射力を強化したステルス寄りのスーツ。</p>
-                <small>Stealth / Hornisse Zwei / Viper / Spinne</small>
-              </div>
-            </article>
-            <article class="suit-card">
-              <button class="suit-portrait" type="button" data-full="assets/suit-ver3-transparent.png" data-title="Ver.3.0 / Wolf">
-                <img src="assets/suit-ver3-transparent.png" alt="Ver.3 ウルフ立ち絵">
-              </button>
-              <div class="suit-copy">
-                <span class="year">Ver.3.0 / Wolf</span>
-                <h3>近接特化型</h3>
-                <p>第4物質形態「Gプラズマ」を解放。Gクロウ、Gパルス、水月による近接戦闘へ拡張。</p>
-                <small>Melee / G-Plasma / Mizuki blade</small>
-              </div>
-            </article>
-            <article class="suit-card suit-card-reverse suit-current">
-              <button class="suit-portrait" type="button" data-full="assets/suit-ver4-transparent.png" data-title="Ver.4.0 / Nighthawk">
-                <img src="assets/suit-ver4-transparent.png" alt="Ver.4 ナイトホーク立ち絵">
-              </button>
-              <div class="suit-copy">
-                <span class="year">Ver.4.0 / Nighthawk</span>
-                <h3>遠距離隠密特化型</h3>
-                <p>チサトと完全同期するL.I.B.R.A. Systemを搭載。攻撃予測、情報解析、空中戦を軸にした現在の姿。</p>
-                <small>Long range / L.I.B.R.A. System / ChiSaT sync</small>
-              </div>
-            </article>
-            <article class="ai-card">
-              <div class="ai-main">
-                <img src="assets/chisat-stand.png" alt="AIチサト立ち絵">
-                <div class="suit-copy">
-                  <span class="year">Support AI / ChiSaT</span>
-                  <h3>Channel insight support to main AI</h3>
-                  <p>尾形の配信システム、戦闘システム、アートメイキングを補助するメインAI。過去の配信データやコメントを解析し、次の制作と作戦に接続する。</p>
-                  <small>AI partner / Stream support / Battle analysis</small>
-                </div>
-              </div>
-              <div class="spec-grid" aria-label="チサト設定資料">
-                <figure>
-                  <img src="assets/chisat-spec1.png" alt="チサト スペック1">
-                  <figcaption>Spec 01</figcaption>
-                </figure>
-                <figure>
-                  <img src="assets/chisat-spec2.jpg" alt="チサト スペック2">
-                  <figcaption>Spec 02</figcaption>
-                </figure>
-              </div>
-            </article>
-          </div>
-        </section>
+        </div>
+      </section>
 
-        <section id="works" class="section works-section">
-          <div class="section-heading">
-            <p class="eyebrow">Works</p>
-            <h2>Illustration archive</h2>
+      <!-- ============ CHISAT ============ -->
+      <section class="block chisat-block" aria-label="サポートAI チサト">
+        <div class="chisat-layout reveal">
+          <div class="chisat-visual">
+            <img src="assets/chisat-stand.webp" alt="AIチサト立ち絵" loading="lazy">
           </div>
-          <div class="works-grid">
-            <article class="work-card">
-              <img class="work-image" src="assets/key-visual-2.png" alt="キービジュアル2">
-              <span>2026</span>
+          <div class="chisat-copy">
+            <p class="block-tag mono">SUPPORT AI // CHISAT</p>
+            <h3 class="chisat-name">チサト<span class="mono"> — CHANNEL INSIGHT AI</span></h3>
+            <p>尾形の配信システム、戦闘システム、アートメイキングを補助するメインAI。過去の配信データやコメントを解析し、次の制作と作戦に接続する。</p>
+            <p class="mono chisat-tags">AI PARTNER / STREAM SUPPORT / BATTLE ANALYSIS</p>
+            <div class="chisat-specs">
+              <button class="tilt" type="button" data-full="assets/chisat-spec1.webp" data-title="CHISAT SPEC 01" data-hover>
+                <img src="assets/chisat-spec1.webp" alt="チサト スペック1" loading="lazy">
+                <span class="mono">SPEC_01</span>
+              </button>
+              <button class="tilt" type="button" data-full="assets/chisat-spec2.webp" data-title="CHISAT SPEC 02" data-hover>
+                <img src="assets/chisat-spec2.webp" alt="チサト スペック2" loading="lazy">
+                <span class="mono">SPEC_02</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ WORKS ============ -->
+      <section id="works" class="block">
+        <header class="block-head">
+          <span class="block-ghost" aria-hidden="true">05</span>
+          <p class="block-tag mono">05 / GALLERY</p>
+          <h2 class="block-title" data-scramble>WORKS</h2>
+        </header>
+
+        <div class="works-rows">
+          <button class="work-row tilt reveal" type="button" data-full="assets/key-visual-hd.webp" data-title="KEY VISUAL 2 — 2026" data-hover>
+            <div class="work-visual"><img src="assets/key-visual-hd.webp" alt="キービジュアル2" loading="lazy"></div>
+            <div class="work-copy">
+              <span class="mono">2026 / KV</span>
               <h3>Key Visual 2</h3>
               <p>Main visual for the current world.</p>
-            </article>
-            <article class="work-card">
-              <img class="work-image" src="assets/work-01.jpg" alt="イラスト作品">
-              <span>Archive</span>
+            </div>
+          </button>
+          <button class="work-row tilt reveal" type="button" data-full="assets/work-01.webp" data-title="CHARACTER ART" data-hover>
+            <div class="work-visual"><img src="assets/work-01.webp" alt="イラスト作品" loading="lazy"></div>
+            <div class="work-copy">
+              <span class="mono">ARCHIVE</span>
               <h3>Character Art</h3>
               <p>Illustrations posted across X and portfolio channels.</p>
-            </article>
-            <article class="work-card">
-              <img class="work-image" src="assets/work-02.png" alt="チサト関連イラスト">
-              <span>Series</span>
+            </div>
+          </button>
+          <button class="work-row tilt reveal" type="button" data-full="assets/work-02.webp" data-title="WORLD BUILDING" data-hover>
+            <div class="work-visual"><img src="assets/work-02.webp" alt="チサト関連イラスト" loading="lazy"></div>
+            <div class="work-copy">
+              <span class="mono">SERIES</span>
               <h3>World Building</h3>
               <p>Characters, suit concepts, and story materials.</p>
-            </article>
-          </div>
-        </section>
-
-        <section id="contact" class="section contact-section">
-          <div class="section-heading">
-            <p class="eyebrow">Contact</p>
-            <h2>Contact for work, collab, and commission.</h2>
-          </div>
-          <div class="contact-grid">
-            <div class="contact-copy">
-              <p>
-                Illustration, streaming collaboration, appearance, and creative direction.
-              </p>
-              <a class="mail-address" href="mailto:saiogata@gmail.com">saiogata@gmail.com</a>
-              <p class="note">お仕事、コラボ、出演、イラスト制作のご相談はこちらへ。</p>
             </div>
-            <form class="contact-form" action="mailto:saiogata@gmail.com" method="post" enctype="text/plain">
-              <label>
-                Name
-                <input type="text" name="name" autocomplete="name" required>
-              </label>
-              <label>
-                Email
-                <input type="email" name="email" autocomplete="email" required>
-              </label>
-              <label>
-                Subject
-                <input type="text" name="subject" required>
-              </label>
-              <label>
-                Message
-                <textarea name="message" rows="6" required></textarea>
-              </label>
-              <button type="submit">Send Message</button>
-            </form>
+          </button>
+        </div>
+      </section>
+
+      <!-- ============ CONTACT ============ -->
+      <section id="contact" class="block contact-block">
+        <header class="block-head">
+          <span class="block-ghost" aria-hidden="true">06</span>
+          <p class="block-tag mono">06 / UPLINK</p>
+          <h2 class="block-title" data-scramble>CONTACT</h2>
+        </header>
+
+        <div class="contact-layout">
+          <div class="contact-copy reveal">
+            <p class="statement">信号を送れ。<br>夜のグリッドで待っている。</p>
+            <p class="statement-sub">Illustration, streaming collaboration, appearance, and creative direction.</p>
+            <a class="mail-line mono" href="mailto:saiogata@gmail.com" data-hover>&gt; saiogata@gmail.com</a>
+            <p class="statement-note">お仕事、コラボ、出演、イラスト制作のご相談はこちらへ。</p>
           </div>
-        </section>
-      </main>
-    </div>
-    <div class="image-modal" role="dialog" aria-modal="true" aria-label="全身立ち絵" hidden>
-      <button class="modal-close" type="button" aria-label="閉じる">Close</button>
+
+          <form class="term-form reveal" action="mailto:saiogata@gmail.com" method="post" enctype="text/plain">
+            <p class="mono term-head">// TRANSMISSION FORM</p>
+            <label><span class="mono">&gt; NAME</span><input type="text" name="name" autocomplete="name" required></label>
+            <label><span class="mono">&gt; EMAIL</span><input type="email" name="email" autocomplete="email" required></label>
+            <label><span class="mono">&gt; SUBJECT</span><input type="text" name="subject" required></label>
+            <label><span class="mono">&gt; MESSAGE</span><textarea name="message" rows="6" required></textarea></label>
+            <button class="btn btn-fill" type="submit" data-hover>TRANSMIT →</button>
+          </form>
+        </div>
+      </section>
+
+      <footer class="foot">
+        <p class="foot-big mono" aria-hidden="true">HUMAN × AI</p>
+        <img src="assets/logo2.png" alt="OgataChannel" class="foot-logo">
+        <p class="mono foot-copy">© 2026 OGATACHANNEL WITH AI — ALL SIGNALS RESERVED</p>
+      </footer>
+    </main>
+
+    <!-- modal (image / video) -->
+    <div class="modal" role="dialog" aria-modal="true" aria-label="拡大表示" hidden>
+      <button class="modal-close mono" type="button" aria-label="閉じる" data-hover>[ CLOSE ]</button>
       <figure>
-        <img src="" alt="">
-        <figcaption></figcaption>
+        <img src="" alt="" hidden>
+        <video src="" controls playsinline hidden></video>
+        <figcaption class="mono"></figcaption>
       </figure>
     </div>
-    <script src="script.js"></script>
+
+    <script src="script.js?v=16"></script>
   </body>
 </html>
