@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap"
       rel="stylesheet"
     >
-    <link rel="stylesheet" href="styles.css?v=16">
+    <link rel="stylesheet" href="styles.css?v=17">
   </head>
   <body>
     <!-- boot sequence -->
@@ -56,6 +56,7 @@
         <a href="#worldview" data-sec="worldview"><span>03</span>WORLD</a>
         <a href="#suits" data-sec="suits"><span>04</span>SUIT</a>
         <a href="#works" data-sec="works"><span>05</span>WORKS</a>
+        <a href="manga.html"><span>★</span>MANGA</a>
         <a href="#contact" data-sec="contact"><span>06</span>LINK</a>
       </nav>
       <div class="rail-bottom">
@@ -80,6 +81,7 @@
         <a href="#worldview"><span>03</span>WORLD</a>
         <a href="#suits"><span>04</span>SUIT</a>
         <a href="#works"><span>05</span>WORKS</a>
+        <a href="manga.html"><span>★</span>MANGA</a>
         <a href="#contact"><span>06</span>LINK</a>
       </nav>
       <button class="bgm-toggle bgm-toggle-mobile" type="button" aria-pressed="false">
@@ -114,8 +116,8 @@
           </h1>
           <p class="withai mono">VIRTUAL VANGUARD — WITH AI</p>
           <div class="hero-actions">
-            <a class="btn btn-fill" href="#works" data-hover>VIEW WORKS</a>
-            <a class="btn btn-line" href="#worldview" data-hover>EXPLORE STORY</a>
+            <a class="btn btn-fill" href="manga.html" data-hover>漫画を読む →</a>
+            <a class="btn btn-line" href="#works" data-hover>VIEW WORKS</a>
             <a class="btn btn-yt" href="https://www.youtube.com/user/Saifa17" target="_blank" rel="noreferrer" data-hover>
               <span class="live-dot" aria-hidden="true"></span>YOUTUBE
             </a>
@@ -128,6 +130,21 @@
 
         <a class="scroll-sign mono" href="#about" data-hover aria-label="Aboutへ移動">
           <span>SCROLL</span><i></i>
+        </a>
+      </section>
+
+      <!-- ============ MANGA ============ -->
+      <section class="manga-feature" aria-labelledby="manga-feature-title">
+        <a class="manga-feature-link" href="manga.html" data-hover>
+          <div class="manga-feature-art">
+            <img src="assets/manga/chapter-01/03.jpg" alt="OgataChannel 漫画 第1話の扉絵" loading="lazy" width="1536" height="864">
+          </div>
+          <div class="manga-feature-copy">
+            <p class="mono manga-feature-kicker">NEW STORY / EPISODE 01</p>
+            <h2 id="manga-feature-title">漫画・第1話を公開</h2>
+            <p>夜のバーチャル東京から、オガタとチサトの物語が始まる。</p>
+            <span class="manga-feature-cta mono">全8ページを読む <span aria-hidden="true">↗</span></span>
+          </div>
         </a>
       </section>
 
