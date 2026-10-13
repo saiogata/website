@@ -1,0 +1,48 @@
+{
+  "date": "2026-10-13",
+  "events": [
+    {
+      "time": "12:48",
+      "source": "timeline",
+      "involved": [
+        "makoto"
+      ],
+      "summary": "マコトが、公安ドローンの巡回ルートが先週より一本増えていること(宮益坂の上のほう)を見つけた。ハロウィン向けの増強だと推測。"
+    },
+    {
+      "time": "13:02",
+      "source": "timeline",
+      "involved": [
+        "chisato",
+        "makoto"
+      ],
+      "summary": "チサトがマコトの情報をもとに、マップに巡回ルートの印をつけた。マコトは『読みが外れてたらごめん』と自信なさげだった。"
+    },
+    {
+      "time": "15:40",
+      "source": "timeline",
+      "involved": [
+        "chisato"
+      ],
+      "summary": "チサトが過去の配信アーカイブを整理し、オガタさんの描き方が少しずつ変わっていることに気づいた。"
+    },
+    {
+      "time": "18:10",
+      "source": "timeline",
+      "involved": [
+        "chisato",
+        "makoto"
+      ],
+      "summary": "チサトがG粒子の予備タンクの隠し場所をクイズにしようとしたが、機密なのでやめた。マコトは感謝した。"
+    },
+    {
+      "time": "23:40",
+      "source": "timeline",
+      "involved": [
+        "chisato",
+        "makoto"
+      ],
+      "summary": "ハロウィンまでに二人で作戦会議をする約束をした。チサトは議題を三つ用意済み。日程は未定。"
+    }
+  ]
+}

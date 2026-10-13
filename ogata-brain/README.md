@@ -1,34 +1,37 @@
 # ogata-brain
 
-チサトとマコトの「共有の記憶」です。タイムライン、配信ツール、今後つくる別の出し先(Xなど)は、すべてこのフォルダを読み書きします。
+チサトとマコトの「脳」です。タイムライン、配信ツール、ボイスなど、二人が出てくるものはすべてここを読み、起きたことをここに書き戻します。
 
-## ファイル
+## 構成
 
-| ファイル | 中身 | 書く人 |
-|---|---|---|
-| `bible.json` | 世界観とキャラ設定(口調・一人称・呼び方・書き方ルール) | 尾形が直すとき |
-| `memory.json` | 二人の長期記憶。`relationship` / `facts` / `threads` / `recent_events` | 毎朝の自動タスク、配信ツール |
-| `timeline/index.json` | タイムラインがある日付の一覧 | 毎朝の自動タスク |
-| `timeline/YYYY-MM-DD.json` | その日の投稿(`posts[]`: id, who, time, text, reply_to) | 毎朝の自動タスク |
+| 場所 | 中身 |
+|---|---|
+| `bible.json` | 世界観・キャラ設定・ルール(尾形が直す) |
+| `chisato/memory.json` | チサト本人の記憶(自分・関係・覚えていること・気持ち・約束) |
+| `makoto/memory.json` | マコト本人の記憶(秘密もここ) |
+| `events/YYYY-MM-DD.json` | その日に起きた出来事のログ。消さずに積み上げる。`involved` に関わったキャラ |
+| `timeline/` | 公開タイムライン用の投稿(出力) |
+| `tools/brain.mjs` | 読み書き用モジュール(Node 18+、依存なし、API不要) |
+| `ROUTINE.md` | 毎朝の更新手順 |
 
-## 読み方(配信ツールなどから)
+同じ出来事でも、二人の記憶はそれぞれの視点で別々に書かれます。チサトが関わっていない出来事は、チサトの文脈には入りません。
 
-公開URLからそのまま取得できます。認証は要りません。
+## 配信ツールから使う
 
-```
-https://raw.githubusercontent.com/saiogata/website/main/ogata-brain/memory.json
-https://raw.githubusercontent.com/saiogata/website/main/ogata-brain/bible.json
-```
+```js
+import { loadContext, addEvent } from "./ogata-brain/tools/brain.mjs";
 
-配信開始時に `memory.json` を読み、`relationship` / `facts` / `threads` / `recent_events` をシステムプロンプトに入れると、タイムラインでの出来事を覚えた状態で喋れます。
-
-## 書き方(配信のあと)
-
-配信で起きたことは `memory.json` の `recent_events` の先頭に追加します。
-
-```json
-{"date": "2026-10-18", "source": "stream", "summary": "配信で起きたことを2〜3文で"}
+const context = await loadContext("chisato");   // システムプロンプトの先頭に入れる
+// …配信…
+await addEvent({ source: "stream", involved: ["chisato"], summary: "配信で起きたことを2〜3文で" });
+// そのあと ogata-brain を git commit / push すると、翌朝の二人がそれを覚えている
 ```
 
-`recent_events` は新しい順で最大30件。古いものは、大事なら `facts` にまとめてから消します。
-翌朝の自動タスクがこれを読むので、配信の出来事がタイムラインの二人の話題に反映されます。
+ローカルにクローンがなくても、`loadContext` は GitHub の公開URLから読めます(書き込みはクローンが必要)。
+
+コマンドラインからも使えます。
+
+```
+node ogata-brain/tools/brain.mjs context chisato
+node ogata-brain/tools/brain.mjs event stream chisato "配信で…"
+```
