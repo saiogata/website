@@ -1475,3 +1475,13 @@ body:not(.hero-in) .mobile-bar { opacity: 0; pointer-events: none; }
   .modal { padding: 1.2rem; }
   .modal-close { top: 0.8rem; right: 0.8rem; }
 }
+
+/* ---------- left rail: keep every nav item visible on shorter screens ---------- */
+@media (max-height: 920px) {
+  .rail-nav { gap: 1.1rem; }
+  .rail-nav a { letter-spacing: 0.24em; }
+}
+@media (max-height: 780px) {
+  .rail-nav { gap: 0.75rem; }
+  .rail-nav a { font-size: 0.66rem; letter-spacing: 0.16em; }
+}
