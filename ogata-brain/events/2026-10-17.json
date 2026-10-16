@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-17",
+  "events": [
+    {
+      "time": "09:00",
+      "source": "timeline",
+      "involved": [
+        "chisato",
+        "makoto"
+      ],
+      "summary": "二人でドローンのピチューに挨拶しに行った。ピチューはチサトの周りをくるくる回り、マコトも『うれしそうに見えたのはたしか』と認めた。"
+    },
+    {
+      "time": "13:10",
+      "source": "timeline",
+      "involved": [
+        "makoto"
+      ],
+      "summary": "マコトがテスト用モデルで、スーツのハロウィン柄ARとL.I.B.R.A.の同期を試した。胴体は問題なし。6枚の翼だけ、動きに追いつかずかぼちゃ柄がちらついた。"
+    },
+    {
+      "time": "13:40",
+      "source": "timeline",
+      "involved": [
+        "chisato",
+        "makoto"
+      ],
+      "summary": "チサトが『翼だけコウモリ柄にする』案を出し、マコトも賛成した。"
+    },
+    {
+      "time": "17:30",
+      "source": "timeline",
+      "involved": [
+        "chisato"
+      ],
+      "summary": "チサトがコウモリ柄のラフを描いた。"
+    },
+    {
+      "time": "22:40",
+      "source": "timeline",
+      "involved": [
+        "makoto"
+      ],
+      "summary": "マコトが、週末はかぼちゃカメラの動きが少ないことに気づいた。"
+    }
+  ]
+}
