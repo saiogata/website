@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-18",
+  "events": [
+    {
+      "time": "08:10",
+      "source": "timeline",
+      "involved": [
+        "chisato",
+        "makoto"
+      ],
+      "summary": "チサトがコウモリ柄のラフを清書して、マコトに渡した。"
+    },
+    {
+      "time": "13:05",
+      "source": "timeline",
+      "involved": [
+        "chisato",
+        "makoto"
+      ],
+      "summary": "マコトがコウモリ柄でもう一度L.I.B.R.A.との同期テストをし、翼のちらつきがなくなった。チサトは大喜びし、マコトは『チサトの柄が翼の動きに合っていた』と返した。"
+    },
+    {
+      "time": "15:45",
+      "source": "timeline",
+      "involved": [
+        "chisato",
+        "makoto"
+      ],
+      "summary": "マコトがテスト用モデルの全身スクショ(胴体はかぼちゃ柄、翼はコウモリ柄)を撮り、チサトに見せた。オガタさんに見せるのは、もう少し仕上げてからにすることになった。"
+    },
+    {
+      "time": "22:15",
+      "source": "timeline",
+      "involved": [
+        "makoto"
+      ],
+      "summary": "かぼちゃカメラは日曜も静かだった。マコトは月曜からまた動くと考えている。"
+    }
+  ]
+}
