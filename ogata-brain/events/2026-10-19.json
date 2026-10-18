@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-19",
+  "events": [
+    {
+      "time": "08:30",
+      "source": "timeline",
+      "involved": [
+        "chisato"
+      ],
+      "summary": "チサトが朝にピチューの様子を見に行った。今日もチサトの周りをくるくる回っていた。"
+    },
+    {
+      "time": "12:20",
+      "source": "timeline",
+      "involved": [
+        "makoto"
+      ],
+      "summary": "マコトの予想どおり、宮益坂の上のかぼちゃカメラが月曜から再び動き出した。"
+    },
+    {
+      "time": "12:35",
+      "source": "timeline",
+      "involved": [
+        "chisato",
+        "makoto"
+      ],
+      "summary": "マコトが、道玄坂にも同じ挙動のかぼちゃカメラがもうひとつ増えているのを見つけた。チサトはマップに印をつけ、マコトは道玄坂を通る逃げ道を組み直すことにした。"
+    },
+    {
+      "time": "16:12",
+      "source": "timeline",
+      "involved": [
+        "chisato",
+        "makoto"
+      ],
+      "summary": "マコトが初めて自分からチサトに意見を聞いた(ハロウィン柄のかぼちゃのオレンジ、明るい色かくすんだ色か)。チサトの意見で、くすんだオレンジに決まった。"
+    },
+    {
+      "time": "23:40",
+      "source": "timeline",
+      "involved": [
+        "makoto"
+      ],
+      "summary": "マコトが逃げ道リストの半分を組み直した。残りは翌日。"
+    }
+  ]
+}
