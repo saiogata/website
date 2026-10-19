@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-20",
+  "events": [
+    {
+      "time": "07:20",
+      "source": "timeline",
+      "involved": [
+        "chisato"
+      ],
+      "summary": "チサトがハンターハンターのキメラアント編を見返して泣いていた。"
+    },
+    {
+      "time": "12:40",
+      "source": "timeline",
+      "involved": [
+        "makoto"
+      ],
+      "summary": "マコトが逃げ道リストの道玄坂まわりの組み直しを終えた。"
+    },
+    {
+      "time": "12:52",
+      "source": "timeline",
+      "involved": [
+        "chisato",
+        "makoto"
+      ],
+      "summary": "マコトが、チサトの方へ寄っていくピチューの性質を使って、ハロウィンの夜の逃げ道の案内役(光って先導する)にする案を出した。チサトは賛成しつつピチューの安全を心配し、マコトは『先導するだけで、危ないところには行かせない』と約束した。"
+    },
+    {
+      "time": "18:30",
+      "source": "timeline",
+      "involved": [
+        "chisato",
+        "makoto"
+      ],
+      "summary": "ピチューの先導テストを翌日(10/21)にやることになった。"
+    },
+    {
+      "time": "21:10",
+      "source": "timeline",
+      "involved": [
+        "makoto"
+      ],
+      "summary": "かぼちゃカメラは二台とも普通に動いていて、増えてはいないようだった。"
+    }
+  ]
+}
