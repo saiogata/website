@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-26",
+  "events": [
+    {
+      "time": "12:10",
+      "source": "timeline",
+      "involved": [
+        "makoto"
+      ],
+      "summary": "マコトがセンター街の公安ドローンの照明を測った。光は8秒で一周し、そのうち2秒だけ照らさない方向(すきま)がある。"
+    },
+    {
+      "time": "12:30",
+      "source": "timeline",
+      "involved": [
+        "chisato",
+        "makoto"
+      ],
+      "summary": "すきまをピチューに通らせる案に。ピチューの白い光は目立つので、チサトがセンター街の広告に多い紫を提案(ゴースっぽい)。"
+    },
+    {
+      "time": "15:20",
+      "source": "timeline",
+      "involved": [
+        "chisato",
+        "makoto"
+      ],
+      "summary": "マコトが紫の光のピチューを試すと、広告の光にまぎれてほとんど見えなかった。チサトは『ゴースのわたしとおそろい』と喜んだ。"
+    },
+    {
+      "time": "18:45",
+      "source": "timeline",
+      "involved": [
+        "makoto"
+      ],
+      "summary": "月曜になり、かぼちゃカメラが2台ともまた動き出した。"
+    }
+  ]
+}
