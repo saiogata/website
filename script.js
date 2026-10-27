@@ -68,12 +68,22 @@ const bootDone = (() => {
   if (!window.matchMedia("(pointer: fine)").matches) return;
   const dot = document.querySelector(".cursor-dot");
   const ring = document.querySelector(".cursor-ring");
-  let mx = -100, my = -100, rx = -100, ry = -100;
+  let mx = -100, my = -100, rx = -100, ry = -100, running = false;
 
-  document.addEventListener("mousemove", (e) => {
+  const loop = () => {
+    rx += (mx - rx) * 0.32;
+    ry += (my - ry) * 0.32;
+    if (Math.abs(mx - rx) < 0.3 && Math.abs(my - ry) < 0.3) { rx = mx; ry = my; running = false; }
+    ring.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
+    if (running) requestAnimationFrame(loop);
+  };
+
+  document.addEventListener("pointermove", (e) => {
     mx = e.clientX;
     my = e.clientY;
-    dot.style.transform = `translate(${mx - 3}px, ${my - 3}px)`;
+    dot.style.transform = `translate3d(${mx}px, ${my}px, 0)`;
+    if (REDUCED) { ring.style.transform = dot.style.transform; return; }
+    if (!running) { running = true; requestAnimationFrame(loop); }
   }, { passive: true });
 
   const HOVER = "a, button, input, textarea, label, [data-hover]";
@@ -93,14 +103,6 @@ const bootDone = (() => {
     if (e.target.closest(VIEW)) ring.classList.remove("is-view");
   });
 
-  const loop = () => {
-    rx += (mx - rx) * 0.16;
-    ry += (my - ry) * 0.16;
-    const size = ring.offsetWidth / 2;
-    ring.style.transform = `translate(${rx - size}px, ${ry - size}px)`;
-    requestAnimationFrame(loop);
-  };
-  if (!REDUCED) loop();
 })();
 
 /* ---------- depth field (pseudo-3D point wave) ---------- */
@@ -131,35 +133,43 @@ const bootDone = (() => {
     mouseY = (e.clientY / h - 0.5) * 2;
   }, { passive: true });
 
+  // the wave moves slowly, so 30fps looks the same and halves the cost
+  const FRAME = 1000 / 30;
+  let last = -FRAME;
+  const rowAlpha = [];
+  for (let j = 1; j <= ROWS; j++) {
+    const depth = 1 - (j * SP) / MAXZ;
+    const a = 0.06 + depth * depth * 0.6;
+    rowAlpha[j] = [`rgba(0, 224, 255, ${a.toFixed(3)})`, `rgba(64, 130, 255, ${(a * 0.85).toFixed(3)})`];
+  }
+
   const draw = (t) => {
+    if (t - last < FRAME - 1) { requestAnimationFrame(draw); return; }
+    last = t;
     if (w === 0 || h === 0) resize(); // viewport may initialize late
     ctx.clearRect(0, 0, w, h);
-    camX += (mouseX * 60 - camX) * 0.04;
-    camY += (mouseY * 26 - camY) * 0.04;
+    camX += (mouseX * 60 - camX) * 0.08;
+    camY += (mouseY * 26 - camY) * 0.08;
 
     for (let j = 1; j <= ROWS; j++) {
       const z = j * SP;
       const persp = FL / (FL + z);
-      const depth = 1 - z / MAXZ;
-      for (let i = 0; i <= COLS; i++) {
-        const x = (i - COLS / 2) * SP;
-        const y =
-          150 +
-          Math.sin(x * 0.011 + t * 0.0009) * 26 +
-          Math.cos(z * 0.008 - t * 0.0006) * 22 +
-          Math.sin((x + z) * 0.004 + t * 0.0004) * 14;
-
-        const sx = cx + (x - camX) * persp;
-        const sy = horizon + (y - camY) * persp;
-        if (sx < -8 || sx > w + 8 || sy > h + 8) continue;
-
-        const size = Math.max(0.5, 2.4 * persp);
-        const cold = i % 7 === 0;
-        const alpha = 0.06 + depth * depth * 0.6;
-        ctx.fillStyle = cold
-          ? `rgba(0, 224, 255, ${alpha})`
-          : `rgba(64, 130, 255, ${alpha * 0.85})`;
-        ctx.fillRect(sx, sy, size, size);
+      const size = Math.max(0.5, 2.4 * persp);
+      const zWave = Math.cos(z * 0.008 - t * 0.0006) * 22;
+      for (let pass = 0; pass < 2; pass++) {   // pass 0: cyan columns, pass 1: blue
+        ctx.beginPath();
+        for (let i = 0; i <= COLS; i++) {
+          if ((i % 7 === 0) !== (pass === 0)) continue;
+          const x = (i - COLS / 2) * SP;
+          const y = 150 + Math.sin(x * 0.011 + t * 0.0009) * 26 + zWave +
+            Math.sin((x + z) * 0.004 + t * 0.0004) * 14;
+          const sx = cx + (x - camX) * persp;
+          const sy = horizon + (y - camY) * persp;
+          if (sx < -8 || sx > w + 8 || sy > h + 8) continue;
+          ctx.rect(sx, sy, size, size);
+        }
+        ctx.fillStyle = rowAlpha[j][pass];
+        ctx.fill();
       }
     }
     requestAnimationFrame(draw);
@@ -218,7 +228,10 @@ bootDone.then(() => {
     document.body.classList.add("hero-in");
     if (video) {
       video.classList.add("is-gone");
-      window.setTimeout(() => video.pause(), 1700); // after crossfade
+      window.setTimeout(() => {
+        video.pause();
+        video.style.display = "none"; // drop the finished intro from compositing
+      }, 1700); // after crossfade
     }
 
     // typewriter catchcopy
@@ -551,16 +564,27 @@ const audioViz = (() => {
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
+  let running = false;
   const loop = () => {
-    cx += (mx - cx) * 0.06;
-    cy += (my - cy) * 0.06;
+    cx += (mx - cx) * 0.08;
+    cy += (my - cy) * 0.08;
+    const ty = cy + sy;
+    if (Math.abs(mx - cx) < 0.05 && Math.abs(my - cy) < 0.05 && Math.abs(ty - (city.__ty ?? ty)) < 0.05) {
+      cx = mx; cy = my; running = false;
+    }
     if (city) {
       // slow vertical drift keeps the skyline alive without moving the horizon far
-      city.style.transform = `translate3d(${cx}px, ${cy + sy}px, 0)`;
+      city.style.transform = `translate3d(${cx.toFixed(2)}px, ${(cy + sy).toFixed(2)}px, 0)`;
+      city.__ty = cy + sy;
     }
-    requestAnimationFrame(loop);
+    if (running) requestAnimationFrame(loop);
   };
-  if (REDUCED) { onScroll(); } else { loop(); }
+  const wake = () => { if (!running && city) { running = true; requestAnimationFrame(loop); } };
+  if (!REDUCED) {
+    document.addEventListener("pointermove", wake, { passive: true });
+    window.addEventListener("scroll", wake, { passive: true });
+    wake();
+  }
 })();
 
 /* ---------- ghost particles rising from the suit platform ---------- */
@@ -623,9 +647,14 @@ const audioViz = (() => {
       ctx.fill();
     }
     ctx.globalCompositeOperation = "source-over";
-    if (!REDUCED) requestAnimationFrame(draw);
+    if (!REDUCED && visible) requestAnimationFrame(draw);
+    else running = false;
   };
-  requestAnimationFrame(draw);
+  let visible = false, running = false;
+  new IntersectionObserver(([en]) => {
+    visible = en.isIntersecting;
+    if (visible && !running) { running = true; requestAnimationFrame(draw); }
+  }).observe(stage);
 })();
 
 /* ---------- tilt cards ---------- */
@@ -773,4 +802,13 @@ const audioViz = (() => {
   menu.addEventListener("click", (e) => {
     if (e.target.closest("a")) setOpen(false);
   });
+})();
+
+/* ---------- performance: sections scrolled out of view stop their CSS loops ---------- */
+(() => {
+  if (!("IntersectionObserver" in window)) return;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((en) => en.target.classList.toggle("is-offscreen", !en.isIntersecting));
+  }, { rootMargin: "100px 0px" });
+  document.querySelectorAll("main > section").forEach((sec) => io.observe(sec));
 })();
