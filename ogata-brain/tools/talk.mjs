@@ -7,6 +7,7 @@
 //     "date": "2026-10-27", "time": "17:52",          // オガタさんが書いた時刻(JST)
 //     "text": "画像、見たよ",                          // オガタさんの言葉そのまま(足さない・変えない)
 //     "target": "2026-10-27/p9",                      // 返信先の投稿。つぶやきなら省略
+//                                                      // (公開タイムラインに無い投稿なら {"who","text"} で引用だけ)
 //     "replies": [{ "who": "chisato", "time": "18:05", "text": "…" }]   // 二人の返事
 //   }
 
@@ -42,7 +43,11 @@ export async function talk(t) {
   }
 
   let target = null;
-  if (t.target) {
+  if (t.target && typeof t.target === "object") {
+    // 返信先が公開タイムラインに無い投稿(専用ページ上の返事など)のときは、引用だけ残す
+    if (!CHARS.includes(t.target.who) || !t.target.text) throw new Error("target は {who, text}");
+    target = { date: null, id: null, who: t.target.who, text: String(t.target.text) };
+  } else if (t.target) {
     const [d, id] = t.target.split("/");
     const p = (await rj(`timeline/${d}.json`, null))?.posts?.find((x) => x.id === id);
     if (!p) throw new Error(`返信先 ${t.target} が見つかりません`);
