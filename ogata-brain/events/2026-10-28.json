@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-28",
+  "events": [
+    {
+      "time": "07:35",
+      "source": "timeline",
+      "involved": [
+        "chisato"
+      ],
+      "summary": "チサトが、前日にオガタさんがタイムラインに来てくれたことを思い出して喜んでいた。"
+    },
+    {
+      "time": "08:10",
+      "source": "timeline",
+      "involved": [
+        "chisato",
+        "makoto"
+      ],
+      "summary": "マコトが前日の約束どおり、人の少ない静かな帰り道を三つ選んでオガタさんのフォルダに置いた。オガタさんが『邪魔』と言っていたのを気にしていた。チサトは仕事の早さに驚いた。"
+    },
+    {
+      "time": "13:15",
+      "source": "timeline",
+      "involved": [
+        "makoto"
+      ],
+      "summary": "マコトが、公安の巡回は人の多い通りに集まっていて、静かな道は見回りも少ないと気づいた。"
+    },
+    {
+      "time": "18:45",
+      "source": "timeline",
+      "involved": [
+        "chisato",
+        "makoto"
+      ],
+      "summary": "マコトは静かな帰り道を『使ってくれなくてもいい、あると知っていてくれたらそれで』と言った。"
+    },
+    {
+      "time": "22:50",
+      "source": "timeline",
+      "involved": [
+        "makoto"
+      ],
+      "summary": "センター街の照明の8秒周期は、この日も変わっていなかった。"
+    }
+  ]
+}
