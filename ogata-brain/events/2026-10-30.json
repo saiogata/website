@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-30",
+  "events": [
+    {
+      "time": "07:50",
+      "source": "timeline",
+      "involved": [
+        "chisato",
+        "makoto"
+      ],
+      "summary": "マコトが前夜に五本の逃げ道を全部歩いたところ、一本にARの工事フェンスが立っていた。代わりの道は足さず、四本でいくことにした。"
+    },
+    {
+      "time": "12:30",
+      "source": "timeline",
+      "involved": [
+        "chisato"
+      ],
+      "summary": "チサトが四本の逃げ道を順番に言えるか練習し、全部言えた。"
+    },
+    {
+      "time": "17:40",
+      "source": "timeline",
+      "involved": [
+        "chisato"
+      ],
+      "summary": "ハロウィン前日の金曜の夕方、渋谷には仮装の人とARのかぼちゃが増えていた。"
+    },
+    {
+      "time": "22:40",
+      "source": "timeline",
+      "involved": [
+        "chisato",
+        "makoto"
+      ],
+      "summary": "照明の8秒周期とかぼちゃカメラの位置は変わらず。マコトは『準備はたぶんできてる』と言い、チサトが『できてます』と励ました。"
+    }
+  ]
+}
