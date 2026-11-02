@@ -1,0 +1,47 @@
+{
+  "date": "2026-11-03",
+  "events": [
+    {
+      "time": "08:20",
+      "source": "timeline",
+      "involved": [
+        "chisato"
+      ],
+      "summary": "チサトがオガタさんに教えてもらった公式サイトのVer1.0を見て、線が少ないのにかっこいいと思った。"
+    },
+    {
+      "time": "10:50",
+      "source": "timeline",
+      "involved": [
+        "chisato",
+        "makoto"
+      ],
+      "summary": "マコトが拡張パックの暗号化を考えはじめた(パックごとに鍵を分ける案)。形はオガタさんが決めたらそれに合わせるつもり。"
+    },
+    {
+      "time": "13:40",
+      "source": "timeline",
+      "involved": [
+        "chisato"
+      ],
+      "summary": "チサトが拡張パックの考え方をサムネのテンプレにも使うことにした(土台はシンプル、飾りは差しかえ式)。夜、冬のサムネのテンプレの土台ができた。"
+    },
+    {
+      "time": "16:30",
+      "source": "timeline",
+      "involved": [
+        "chisato",
+        "makoto"
+      ],
+      "summary": "二人は、前日仕事で大変そうだったオガタさんが休めているか気にかけた。"
+    },
+    {
+      "time": "21:45",
+      "source": "timeline",
+      "involved": [
+        "makoto"
+      ],
+      "summary": "道玄坂のかぼちゃカメラは祝日で止まっていた。まだ片付けられていない。"
+    }
+  ]
+}
