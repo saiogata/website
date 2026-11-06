@@ -8,8 +8,10 @@
 //     "text": "画像、見たよ",                          // オガタさんの言葉そのまま(足さない・変えない)
 //     "target": "2026-10-27/p9",                      // 返信先の投稿。つぶやきなら省略
 //                                                      // (公開タイムラインに無い投稿なら {"who","text"} で引用だけ)
-//     "replies": [{ "who": "chisato", "time": "18:05", "text": "…" }]   // 二人の返事
+//     "replies": [{ "who": "chisato", "time": "18:05", "text": "…" }],  // 二人の返事
+//     "images": [{ "src": "assets/timeline/uploads/<id>.webp", "asset": "<id>" }]  // 添えた画像(任意、最大4枚)
 //   }
+//   画像があれば text は空でもよい。src はサイトのルートからの相対パスで、そのファイルが存在すること。
 
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { existsSync } from "node:fs";
@@ -31,7 +33,13 @@ export async function talk(t) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(t.date || "")) throw new Error("date は YYYY-MM-DD");
   if (!TIME.test(t.time || "")) throw new Error("time は HH:MM");
   const text = String(t.text || "").trim();
-  if (!text || text.length > 280) throw new Error("text は1〜280字");
+  const images = (t.images || []).map((x) => ({ src: String(x.src || ""), asset: x.asset ? String(x.asset) : undefined }));
+  if (images.length > 4) throw new Error("画像は4枚まで");
+  for (const im of images) {
+    if (!/^assets\/timeline\/uploads\/[A-Za-z0-9_-]+\.(webp|jpg|png)$/.test(im.src)) throw new Error(`画像の src が不正: ${im.src}`);
+    if (!existsSync(join(ROOT, "..", im.src))) throw new Error(`画像ファイルがありません: ${im.src}`);
+  }
+  if ((!text && !images.length) || text.length > 280) throw new Error("text は1〜280字(画像があれば空でもよい)");
   const replies = t.replies || [];
   if (!replies.length) throw new Error("二人の返事がありません");
   let prev = t.time;
@@ -59,6 +67,7 @@ export async function talk(t) {
   const n = day.posts.filter((p) => /^o\d+$/.test(p.id)).length + 1;
   const oid = `o${n}`;
   const ogata = { id: oid, who: "ogata", time: t.time, text };
+  if (images.length) ogata.images = images;
   if (target) {
     if (target.date === t.date) ogata.reply_to = target.id;
     ogata.quote = { who: target.who, text: target.text };
@@ -80,7 +89,7 @@ export async function talk(t) {
     time: t.time, source: "ogata", involved,
     summary: (target
       ? `オガタさんが${NAMES[target.who] || "オガタさん"}の投稿「${target.text.slice(0, 40)}」に返信した:「${text}」。`
-      : `オガタさんがつぶやいた:「${text}」。`) + replies.map((r) => `${NAMES[r.who]}が返事をした`).join("、") + "。",
+      : `オガタさんがつぶやいた:「${text}」。`) + (images.length ? `(画像を${images.length}枚添えていた)` : "") + replies.map((r) => `${NAMES[r.who]}が返事をした`).join("、") + "。",
   });
   ev.events.sort((a, b) => String(a.time).localeCompare(String(b.time)));
   await wj(evRel, ev);

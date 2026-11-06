@@ -57,6 +57,14 @@
       .re{font-size:12px;color:var(--muted)}
       .re q{quotes:none;display:block;border-left:2px solid var(--line);padding-left:8px;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
       .txt{margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+      .pics{display:grid;gap:4px;margin-top:6px;border-radius:10px;overflow:hidden;max-width:420px}
+      .pics.n1{grid-template-columns:1fr}
+      .pics.n2,.pics.n4{grid-template-columns:1fr 1fr}
+      .pics.n3{grid-template-columns:1fr 1fr 1fr}
+      .pics a{display:block;background:#000;aspect-ratio:4/3;overflow:hidden}
+      .pics.n1 a{aspect-ratio:auto}
+      .pics img{display:block;width:100%;height:100%;object-fit:cover;border-radius:0!important;box-shadow:none!important}
+      .pics.n1 img{height:auto;max-height:420px;object-fit:contain}
       .note{padding:10px 14px;font-family:var(--font-mono);font-size:12px;color:var(--muted);border-top:1px dashed var(--line)}
       .empty{padding:24px 16px;border:1px dashed var(--line);border-radius:8px;color:var(--muted);text-align:center}
       h2{margin:0;font-family:var(--font-mono);font-size:12px;letter-spacing:.2em;color:var(--muted);font-weight:500}
@@ -125,8 +133,10 @@
         var b=el("div","body"),m=el("div","meta");
         m.appendChild(el("span","n",a.n));m.appendChild(el("span","h",a.h));m.appendChild(el("span","tm","· "+(p.time||"")));b.appendChild(m);
         var par=(p.reply_to&&byId[p.reply_to])||p.quote;
-        if(par&&ACC[par.who]){var r=el("div","re","返信先: "+ACC[par.who].h);r.appendChild(el("q",null,par.text));b.appendChild(r);}
-        b.appendChild(el("p","txt",p.text));
+        if(par&&ACC[par.who]){var r=el("div","re","返信先: "+ACC[par.who].h);r.appendChild(el("q",null,par.text||"(画像)"));b.appendChild(r);}
+        if(p.text)b.appendChild(el("p","txt",p.text));
+        var xs=(p.images||[]).filter(function(x){return x&&/^assets\/timeline\/uploads\/[A-Za-z0-9_-]+\.(webp|jpg|png)$/.test(x.src||"");}).slice(0,4);
+        if(xs.length){var g=el("div","pics n"+xs.length);xs.forEach(function(x){var a=el("a");a.href=x.src;a.target="_blank";a.rel="noopener";var im=el("img");im.src=x.src;im.alt="オガタさんが添えた画像";im.loading="lazy";a.appendChild(im);g.appendChild(a);});b.appendChild(g);}
         row.appendChild(b);return row;
       }
       function dayNode(ep,now,head){

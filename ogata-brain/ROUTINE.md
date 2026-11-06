@@ -33,7 +33,12 @@
 2. 1件ごとに `{date, time, text, target, replies}` を作って `node tools/talk.mjs that.json`。
    - target: 専用ページの target が `{date, id}` で、その id が公開タイムライン(`timeline/<date>.json`)にあればその `"date/id"`。無ければ `{who, text}`(引用だけ)。つぶやきなら無し。
    - replies: ページが作った返事(who, time, text)をそのまま使う。status が replied 以外(failed など)で返事が無いものは、ここで bible に従って返事を書く(時刻はオガタさんの投稿より後)。
-   - オガタさんの言葉(text)は一字も変えない。
+   - オガタさんの言葉(text)は一字も変えない。画像だけの投稿は text を空にする。
+   - 画像(`images` にアセットidが並ぶ)があるときは、1枚ずつ `Artifact` の read(url=専用ページ, path=アセットid)で保存し、
+     `python3 tools/webp.py <保存したファイル> <アセットid>` で `assets/timeline/uploads/<id>.webp` を作る。
+     talk.json に `"images":[{"src":"assets/timeline/uploads/<id>.webp","asset":"<id>"}]` を入れる(公開タイムラインにもそのまま載る)。
+     画像は自分の目で見て、何が写っていたかを二人の記憶(facts)に一行で残す(見えたものだけ。推測で足さない)。
+     返信先の投稿に画像があった場合も同じく見ておく。
 3. 取り込んだ talk ドキュメントを `synced: true` に update する(if_version は読んだときの version)。
 4. 二人の `memory.json` に、オガタさんが言ったことをそれぞれの視点で反映する。
 
