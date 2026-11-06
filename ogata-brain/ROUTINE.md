@@ -39,6 +39,8 @@
      talk.json に `"images":[{"src":"assets/timeline/uploads/<id>.webp","asset":"<id>"}]` を入れる(公開タイムラインにもそのまま載る)。
      画像は自分の目で見て、何が写っていたかを二人の記憶(facts)に一行で残す(見えたものだけ。推測で足さない)。
      返信先の投稿に画像があった場合も同じく見ておく。
+   - status が failed / no-sample(ページで返事を作れなかった)のものは、bible と記憶に沿って二人の返事をここで書き、
+     talk.json に入れて取り込むと同時に、その talk ドキュメントにも replies(who, at, time, text)と status:"replied" を書き戻す。
 3. 取り込んだ talk ドキュメントを `synced: true` に update する(if_version は読んだときの version)。
 4. 二人の `memory.json` に、オガタさんが言ったことをそれぞれの視点で反映する。
 
