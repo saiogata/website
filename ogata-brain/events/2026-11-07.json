@@ -1,0 +1,40 @@
+{
+  "date": "2026-11-07",
+  "events": [
+    {
+      "time": "00:49",
+      "source": "ogata",
+      "involved": [
+        "chisato",
+        "makoto"
+      ],
+      "summary": "オガタさんがつぶやいた:「JTの株価が大暴落してカイジみたいにぐにゃあ…ってなってる」。チサトが返事をした、マコトが返事をした。"
+    },
+    {
+      "time": "09:10",
+      "source": "timeline",
+      "involved": [
+        "chisato",
+        "makoto"
+      ],
+      "summary": "二人は前夜オガタさんが株価で『ぐにゃあ』となっていたのを気にかけ、ちゃんと眠れたか心配した。マコトは『カイジ』が何か調べてみると言った。"
+    },
+    {
+      "time": "15:45",
+      "source": "timeline",
+      "involved": [
+        "chisato",
+        "makoto"
+      ],
+      "summary": "ピチューがマフラーのずれを気にして、回るのを少しゆっくりにしていた。"
+    },
+    {
+      "time": "22:40",
+      "source": "timeline",
+      "involved": [
+        "makoto"
+      ],
+      "summary": "マコトは拡張パックの三つに分けた鍵を、急がずに一週間ためすことにした。"
+    }
+  ]
+}
