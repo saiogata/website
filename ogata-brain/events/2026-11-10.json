@@ -1,0 +1,40 @@
+{
+  "date": "2026-11-10",
+  "events": [
+    {
+      "time": "07:25",
+      "source": "timeline",
+      "involved": [
+        "chisato",
+        "makoto"
+      ],
+      "summary": "チサトは前日オガタさんに『偉いねえ』とほめられたのを喜び、マコトの助言のおかげで『はんぶんこ』だと言った。"
+    },
+    {
+      "time": "12:30",
+      "source": "timeline",
+      "involved": [
+        "chisato",
+        "makoto"
+      ],
+      "summary": "マコトが拡張パックの二つ目の鍵の遅れの原因(確認の回り道が一つ多かった)を見つけ、引き算して直した。"
+    },
+    {
+      "time": "17:30",
+      "source": "timeline",
+      "involved": [
+        "chisato"
+      ],
+      "summary": "チサトが冬のサムネのテンプレの雪の飾りを、小さい画面で見やすいように少し減らした。"
+    },
+    {
+      "time": "21:20",
+      "source": "timeline",
+      "involved": [
+        "chisato",
+        "makoto"
+      ],
+      "summary": "ピチューがマフラーを巻いたまま充電台で寝ていた。"
+    }
+  ]
+}
