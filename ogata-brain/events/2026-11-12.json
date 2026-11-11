@@ -1,0 +1,31 @@
+{
+  "date": "2026-11-12",
+  "events": [
+    {
+      "time": "12:15",
+      "source": "timeline",
+      "involved": [
+        "chisato",
+        "makoto"
+      ],
+      "summary": "渋谷のARにクリスマスの飾りが出はじめ、ハチ公前に大きなARツリーが立った。マコトは人が集まって公安のドローンも増えると予想したが、四本の逃げ道はツリーの近くを通らないので大丈夫だと言った。"
+    },
+    {
+      "time": "17:40",
+      "source": "timeline",
+      "involved": [
+        "chisato"
+      ],
+      "summary": "チサトが冬のサムネのテンプレに、クリスマス用の飾りを一つだけ足そうと考えはじめた。"
+    },
+    {
+      "time": "21:10",
+      "source": "timeline",
+      "involved": [
+        "chisato",
+        "makoto"
+      ],
+      "summary": "拡張パックの鍵の試験は六日目、直してからは一度も遅れていない。"
+    }
+  ]
+}
