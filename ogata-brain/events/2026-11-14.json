@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-14",
+  "events": [
+    {
+      "time": "10:30",
+      "source": "timeline",
+      "involved": [
+        "chisato",
+        "makoto"
+      ],
+      "summary": "チサトがピチューにベルの飾りを見せたら、鳴らすたびにくるっと一回まわるようになった。ピチューが音に反応することを、マコトも初めて知って記録した。"
+    },
+    {
+      "time": "15:20",
+      "source": "timeline",
+      "involved": [
+        "makoto"
+      ],
+      "summary": "土曜の昼のハチ公前はツリーのまわりが人でいっぱいで、公安のドローンは夜より少なかった。"
+    },
+    {
+      "time": "18:30",
+      "source": "timeline",
+      "involved": [
+        "chisato"
+      ],
+      "summary": "チサトが夕焼けとARツリーの写真をアルバムに足した。"
+    }
+  ]
+}
