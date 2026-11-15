@@ -63,48 +63,6 @@ const bootDone = (() => {
   };
 })();
 
-/* ---------- custom cursor ---------- */
-(() => {
-  if (!window.matchMedia("(pointer: fine)").matches) return;
-  const dot = document.querySelector(".cursor-dot");
-  const ring = document.querySelector(".cursor-ring");
-  let mx = -100, my = -100, rx = -100, ry = -100, running = false;
-
-  const loop = () => {
-    rx += (mx - rx) * 0.32;
-    ry += (my - ry) * 0.32;
-    if (Math.abs(mx - rx) < 0.3 && Math.abs(my - ry) < 0.3) { rx = mx; ry = my; running = false; }
-    ring.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
-    if (running) requestAnimationFrame(loop);
-  };
-
-  document.addEventListener("pointermove", (e) => {
-    mx = e.clientX;
-    my = e.clientY;
-    dot.style.transform = `translate3d(${mx}px, ${my}px, 0)`;
-    if (REDUCED) { ring.style.transform = dot.style.transform; return; }
-    if (!running) { running = true; requestAnimationFrame(loop); }
-  }, { passive: true });
-
-  const HOVER = "a, button, input, textarea, label, [data-hover]";
-  const VIEW = ".db-card, .work-row, .chisat-specs button, .feed-panel";
-  const label = ring.querySelector(".cursor-label");
-
-  document.addEventListener("mouseover", (e) => {
-    if (e.target.closest(HOVER)) ring.classList.add("is-hover");
-    const viewer = e.target.closest(VIEW);
-    if (viewer) {
-      ring.classList.add("is-view");
-      if (label) label.textContent = "VIEW";
-    }
-  });
-  document.addEventListener("mouseout", (e) => {
-    if (e.target.closest(HOVER)) ring.classList.remove("is-hover");
-    if (e.target.closest(VIEW)) ring.classList.remove("is-view");
-  });
-
-})();
-
 /* ---------- depth field (pseudo-3D point wave) ---------- */
 (() => {
   const canvas = document.getElementById("depth-field");

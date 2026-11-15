@@ -105,50 +105,6 @@ button { font-family: inherit; cursor: pointer; color: inherit; }
 
 .mono { font-family: var(--font-mono); }
 
-/* custom cursor (fine pointers only) */
-@media (pointer: fine) {
-  body { cursor: none; }
-  a, button, input, textarea, label { cursor: none; }
-}
-.cursor-dot, .cursor-ring {
-  position: fixed; top: 0; left: 0; z-index: 300;
-  pointer-events: none;
-  border-radius: 50%;
-  transform: translate(-100px, -100px);
-}
-.cursor-dot, .cursor-ring { will-change: transform; }
-.cursor-dot {
-  width: 6px; height: 6px; margin: -3px 0 0 -3px;
-  background: var(--cyan);
-  box-shadow: 0 0 10px var(--glow-c);
-}
-.cursor-ring {
-  width: 34px; height: 34px; margin: -17px 0 0 -17px;
-  border: 1px solid rgba(0, 224, 255, 0.55);
-  transition: width 0.25s, height 0.25s, margin 0.25s, border-color 0.25s, background 0.25s;
-}
-.cursor-ring.is-hover {
-  width: 56px; height: 56px; margin: -28px 0 0 -28px;
-  border-color: var(--cyan);
-  background: rgba(0, 224, 255, 0.08);
-}
-/* ring turns into a labelled disc over gallery items */
-.cursor-ring.is-view {
-  width: 84px; height: 84px; margin: -42px 0 0 -42px;
-  border-color: var(--cyan);
-  background: rgba(0, 224, 255, 0.14);
-}
-.cursor-label {
-  position: absolute; inset: 0;
-  display: grid; place-items: center;
-  font-family: var(--font-mono); font-size: 0.6rem;
-  letter-spacing: 0.24em; color: var(--ink);
-  opacity: 0; transition: opacity 0.2s;
-}
-.cursor-ring.is-view .cursor-label { opacity: 1; }
-@media (pointer: coarse) {
-  .cursor-dot, .cursor-ring { display: none; }
-}
 
 /* background canvas + grain */
 #depth-field {
@@ -325,7 +281,7 @@ main {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
   object-fit: cover;
-  object-position: 50% 26%;
+  object-position: 52% 46%;
   animation: bgv-zoom 26s ease-in-out infinite alternate;
 }
 .hero-bgv {
