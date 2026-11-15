@@ -169,68 +169,32 @@ const scramble = (() => {
   };
 })();
 
-/* ---------- hero sequence ----------
-   boot → intro movie fullscreen (~6s) → movie crossfades into the key
-   visual, logo slams in, UI staggers up. Skips ahead if the video errors
-   or autoplay is blocked. */
+/* ---------- hero entrance ----------
+   boot screen lifts, then the key visual is already in place: logo slams
+   in, the catchcopy types itself out and the rest staggers up. */
 bootDone.then(() => {
-  const video = document.querySelector(".hero-bgv");
   const typeEl = document.getElementById("typeline");
   // the break splits it into two vertical columns
   const TEXT = "人とAIが出会うとき、\n物語は動き出す。";
-  let revealed = false;
 
-  const reveal = () => {
-    if (revealed) return;
-    revealed = true;
-    document.body.classList.add("hero-in");
-    if (video) {
-      video.classList.add("is-gone");
-      window.setTimeout(() => {
-        video.pause();
-        video.style.display = "none"; // drop the finished intro from compositing
-      }, 1700); // after crossfade
-    }
+  document.body.classList.add("hero-in");
 
-    // typewriter catchcopy
-    if (REDUCED) {
-      typeEl.textContent = TEXT;
-    } else {
-      let i = 0;
-      const type = () => {
-        typeEl.textContent = TEXT.slice(0, ++i);
-        if (i < TEXT.length) window.setTimeout(type, 65);
-      };
-      window.setTimeout(type, 900);
-    }
-
-    // hero scramble titles
-    document.querySelectorAll(".hero [data-scramble]").forEach((elm, idx) => {
-      window.setTimeout(() => scramble(elm), 300 + idx * 160);
-    });
-  };
-
-  if (!video || REDUCED) {
-    reveal();
-    return;
+  // typewriter catchcopy
+  if (REDUCED) {
+    typeEl.textContent = TEXT;
+  } else {
+    let i = 0;
+    const type = () => {
+      typeEl.textContent = TEXT.slice(0, ++i);
+      if (i < TEXT.length) window.setTimeout(type, 65);
+    };
+    window.setTimeout(type, 900);
   }
 
-  let started = false;
-  video.addEventListener("playing", () => {
-    if (started) return;
-    started = true;
-    window.setTimeout(reveal, 6000);
+  // hero scramble titles
+  document.querySelectorAll(".hero [data-scramble]").forEach((elm, idx) => {
+    window.setTimeout(() => scramble(elm), 300 + idx * 160);
   });
-  video.addEventListener("ended", reveal, { once: true });
-  video.addEventListener("error", reveal, { once: true });
-  // autoplay blocked or the video never starts → skip straight to the KV
-  window.setTimeout(() => {
-    if (!started) reveal();
-  }, 2500);
-
-  // play from frame one so the intro is seen in full after the boot screen
-  try { video.currentTime = 0; } catch {}
-  video.play().catch(() => {});
 });
 
 /* ---------- reveal + nav active + suit scrollytelling ---------- */

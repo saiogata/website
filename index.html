@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap"
       rel="stylesheet"
     >
-    <link rel="stylesheet" href="styles.css?v=19">
+    <link rel="stylesheet" href="styles.css?v=20">
   </head>
   <body>
     <!-- boot sequence -->
@@ -91,15 +91,11 @@
     <main id="top">
       <!-- ============ HERO ============ -->
       <section class="hero">
-        <!-- fullscreen media: intro movie plays ~6s, then crossfades into
-             the key visual which stays as the hero backdrop -->
+        <!-- the key visual is the hero backdrop -->
         <div class="hero-media" aria-hidden="true">
-          <img class="hero-kv" src="assets/hero-kv.webp" srcset="assets/hero-kv-1000.webp 1000w, assets/hero-kv.webp 1672w" sizes="100vw" alt="" decoding="async">
-          <video
-            class="hero-bgv"
-            src="assets/hero-intro-web.mp4"
-            autoplay muted playsinline
-          ></video>
+          <img class="hero-kv" src="assets/hero-kv-1920.webp"
+               srcset="assets/hero-kv-1100.webp 1100w, assets/hero-kv-1920.webp 1920w, assets/hero-kv-3000.webp 3000w"
+               sizes="100vw" alt="" fetchpriority="high" decoding="async">
           <div class="hero-shade"></div>
         </div>
 
@@ -443,6 +439,6 @@
       </figure>
     </div>
 
-    <script src="script.js?v=19"></script>
+    <script src="script.js?v=20"></script>
   </body>
 </html>
