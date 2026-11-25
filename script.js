@@ -234,6 +234,13 @@ bootDone.then(() => {
       tags: "LONG RANGE / L.I.B.R.A. SYSTEM / CHISAT SYNC",
       stats: [90, 95, 50, 100],
     },
+    {
+      ver: "VER.5.0 / ASCENDANT", name: "全武装統合制圧型",
+      desc: "Ver1.0〜4.0のすべての特化兵装を統合した、モチーフ「天上人・天使」のスーツ。天候を操る錫槍杖アコナイトを携え、継戦能力と拡張性を軸に大量の敵へ対応する。",
+      tags: "ALL-ARMS / ACONITE / HALO / MULTI WING",
+      stats: [88, 92, 85, 95],
+      more: "ver5.html",
+    },
   ];
   const suitSection = document.getElementById("suits");
   const layers = [...document.querySelectorAll(".suit-layer")];
@@ -244,13 +251,14 @@ bootDone.then(() => {
     name: document.getElementById("s3-name"),
     desc: document.getElementById("s3-desc"),
     tags: document.getElementById("s3-tags"),
+    more: document.getElementById("s3-more"),
   };
   const sBars = [0, 1, 2, 3].map((i) => document.getElementById(`s3-st${i}`));
   let activeSuit = -1;
 
   // hall-of-armor slots: selected suit takes center stage, the rest line
   // up left-to-right in version order along the back wall
-  const SLOTS = ["pos-center", "back-0", "back-1", "back-2"];
+  const SLOTS = ["pos-center", "back-0", "back-1", "back-2", "back-3"];
 
   const applySuit = (idx) => {
     if (idx === activeSuit) return;
@@ -266,6 +274,10 @@ bootDone.then(() => {
     sEls.name.textContent = s.name;
     sEls.desc.textContent = s.desc;
     sEls.tags.textContent = s.tags;
+    if (sEls.more) {
+      sEls.more.hidden = !s.more;
+      if (s.more) sEls.more.href = s.more;
+    }
     sBars.forEach((b, i) => (b.style.width = `${s.stats[i]}%`));
   };
 
@@ -303,7 +315,7 @@ bootDone.then(() => {
       const scrollable = rect.height - vh;
       const progress = Math.min(1, Math.max(0, -rect.top / scrollable));
       verProgress.style.width = `${progress * 100}%`;
-      applySuit(Math.min(3, Math.floor(progress * 4)));
+      applySuit(Math.min(SUITS.length - 1, Math.floor(progress * SUITS.length)));
     }
   };
 
