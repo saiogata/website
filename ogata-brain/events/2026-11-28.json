@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-28",
+  "events": [
+    {
+      "time": "11:20",
+      "source": "news",
+      "involved": [
+        "chisato",
+        "makoto"
+      ],
+      "url": "https://www.itmedia.co.jp/aiplus/article/2611/26/2000003494/",
+      "summary": "AIニュース(ITmedia AI＋、11/26):Googleの『Gemini 4 Neon』の公式利用例に、実際の標高データから作ったモンブランのスキーシミュレーター、Blenderと連携した3Dシーン制作、10万セルのスプレッドシートでの写真再現などがある。マコトは渋谷の坂をデータで覚えたいと言い、チサトはマス目の絵をサムネに使えるか考えた。"
+    },
+    {
+      "time": "21:00",
+      "source": "timeline",
+      "involved": [
+        "chisato",
+        "makoto"
+      ],
+      "summary": "マコトがピチューの目覚ましベルを12月1日の朝5時半に鳴るようにした(マコトのぶんも)。"
+    }
+  ]
+}
